@@ -20,7 +20,8 @@ Python 3.12 | requests | pytest | Allure | Faker | GitHub Actions
 | Auth | Valid login, token validation, missing password error |
 
 ---
-```
+
+## Running Locally
 Add a `.env` file at project root with `REQRES_API_KEY=your_key_here`, then:
 ```bash
 python -m pytest tests/ -v
