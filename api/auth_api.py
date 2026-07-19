@@ -16,3 +16,8 @@ class AuthAPI:
     def login_missing_password(self, email):
         payload = {"email": email}
         return requests.post(self.endpoint, json=payload, headers=self.headers)
+
+    def get_token(self, email, password):
+        """Login and return the auth token directly."""
+        response = self.login(email, password)
+        return response.json()["token"]

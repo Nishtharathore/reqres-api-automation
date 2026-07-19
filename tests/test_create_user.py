@@ -6,8 +6,10 @@ from utils.assertions import (
     assert_response_time,
     assert_has_keys,
     assert_field_equals,
-    assert_field_is_not_none
+    assert_field_is_not_none,
+    assert_schema
 )
+from utils.schemas import CREATE_USER_SCHEMA
 
 
 class TestCreateUser:
@@ -41,3 +43,7 @@ class TestCreateUser:
     def test_create_user_response_time(self):
         response = self.user_api.create_user(self.name, self.job)
         assert_response_time(response, 3)
+
+    def test_create_user_schema(self):
+        response = self.user_api.create_user(self.name, self.job)
+        assert_schema(response, CREATE_USER_SCHEMA)

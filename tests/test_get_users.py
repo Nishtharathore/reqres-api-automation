@@ -6,8 +6,10 @@ from utils.assertions import (
     assert_response_time,
     assert_has_keys,
     assert_is_list,
-    assert_field_equals
+    assert_field_equals,
+    assert_schema
 )
+from utils.schemas import USER_SCHEMA, USERS_LIST_SCHEMA
 
 
 class TestGetUsers:
@@ -50,3 +52,12 @@ class TestGetUsers:
     def test_get_nonexistent_user_returns_404(self):
         response = self.user_api.get_single_user(999)
         assert_status_code(response, 404)
+
+    #Schema validation tests
+    def test_get_single_user_schema(self):
+        response = self.user_api.get_single_user(2)
+        assert_schema(response, USER_SCHEMA)
+
+    def test_get_users_list_schema(self):
+        response = self.user_api.get_users(page=1)
+        assert_schema(response, USERS_LIST_SCHEMA)

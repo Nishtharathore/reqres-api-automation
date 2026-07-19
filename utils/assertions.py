@@ -1,3 +1,4 @@
+from jsonschema import validate, ValidationError
 
 
 def assert_status_code(response, expected_code):
@@ -49,3 +50,11 @@ def assert_is_list(response, key):
     assert isinstance(data[key], list), (
         f"Expected '{key}' to be a list, got {type(data[key]).__name__}"
     )
+
+
+def assert_schema(response, schema):
+    """Assert response body matches the expected JSON schema."""
+    try:
+        validate(instance=response.json(), schema=schema)
+    except ValidationError as e:
+        raise AssertionError(f"Schema validation failed: {e.message}")

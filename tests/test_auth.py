@@ -5,8 +5,10 @@ from utils.assertions import (
     assert_status_code,
     assert_response_time,
     assert_has_keys,
-    assert_field_is_not_none
+    assert_field_is_not_none,
+    assert_schema
 )
+from utils.schemas import LOGIN_SCHEMA
 
 
 class TestAuth:
@@ -38,3 +40,7 @@ class TestAuth:
     def test_login_response_time(self):
         response = self.auth_api.login("eve.holt@reqres.in", "cityslicka")
         assert_response_time(response, 3)
+
+    def test_login_schema(self):
+        response = self.auth_api.login("eve.holt@reqres.in", "cityslicka")
+        assert_schema(response, LOGIN_SCHEMA)
